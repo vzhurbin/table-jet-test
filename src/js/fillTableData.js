@@ -38,16 +38,11 @@ const fillTableData = () => {
   const tableDataHtmlString = headerHtmlString + rowsHtmlString
 
   table.innerHTML = tableDataHtmlString;
+
+  headerArr.forEach((el, i) => {
+    const header = document.getElementById(`header-${i}`);
+    header.addEventListener('click', e => sortColumn(el));    
+  })
 };
 
-const headerListeners = () => {
-  for (let i = 0, len = headerArr.length; i < len; i++) {
-    let headerName = headerArr[i];
-    const header = document.getElementById(`header-${i}`);
-    // console.log(header);
-    // console.log(`header-${i}`);
-    header.addEventListener('click', e => sortColumn(headerName));
-  }
-}
-
-export { fillTableData, headerListeners };
+export default fillTableData;
