@@ -33,7 +33,7 @@ const createRows = (data = {}) => {
   return rowsHtml;
 }
 
-const fillTable = () => {
+const fillTable = (table) => {
   const headerHtmlString = createHeader(headerArr);
   const rowsHtmlString = createRows(data);
   const tableDataHtmlString = headerHtmlString + rowsHtmlString
