@@ -1,8 +1,4 @@
-export const pagination2 = (rowsPerPage) => {
-  
-  // const form = document.querySelector('form');
-  // const input = document.querySelector('input[type=search]');
-  // const button = document.querySelector('button.search');
+export const pagination = (rowsPerPage) => {
   const table = document.getElementById('table');
   const trArray = [...table.querySelectorAll('tr.row')];
   const pageCount = Math.ceil(trArray.length / rowsPerPage);
@@ -10,8 +6,6 @@ export const pagination2 = (rowsPerPage) => {
   
   const firstRowTag = table.rows[0].firstElementChild.tagName;
   const hasHeader = (firstRowTag === 'TH');
-  // start from 2nd row if the first row is header
-  // const firstDataRow = (hasHeader ? 0 : 1);
   
   const visibleRows = (pageNum = 1) => {
     console.log('visible rows');
@@ -54,5 +48,5 @@ export const pagination2 = (rowsPerPage) => {
    }
 
    pageButtons(pageCount);
-   visibleRows(1);
+   visibleRows();
 };

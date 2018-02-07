@@ -5,6 +5,6 @@ import { pagination } from './js/pagination';
 window.onload = () => {
   fillTableData();
   headerListeners();
-  filterSearch();
   pagination(5);
+  filterSearch();
 }
