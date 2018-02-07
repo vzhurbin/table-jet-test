@@ -11,7 +11,7 @@ export const filterSearch = () => {
     const query = input.value.trim().toUpperCase();
     console.log(query);
     // Loop the rows
-    trArray.forEach(tr => {
+    const filteredRows = trArray.forEach(tr => {
       let data = '';
       // Loop over all the cells in the current row and concatenate their text
       const tdArray = [...tr.querySelectorAll('td')];      
@@ -26,6 +26,8 @@ export const filterSearch = () => {
         tr.classList.add('hidden');
       }
     });
+    console.log(filteredRows);
+    return filteredRows;
   };
 
   button.addEventListener('click', e => {
