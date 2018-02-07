@@ -1,12 +1,14 @@
 export const filterSearch = () => {
   
-  const input = document.getElementById('input');
+  const form = document.querySelector('form');
+  const input = document.querySelector('input[type=search]');
+  const button = document.querySelector('button.search');
   const table = document.getElementById('table');
 
   const trArray = [...table.querySelectorAll('tr.row')];
   
   const filter = () => {
-    const search = input.value.trim().toUpperCase();
+    const query = input.value.trim().toUpperCase();
     // Loop the rows
     trArray.forEach(tr => {
       let data = '';
@@ -17,7 +19,7 @@ export const filterSearch = () => {
       });
   
       // Check the string for a match and show/hide row as needed
-      if(data.toUpperCase().indexOf(search) > -1){
+      if(data.toUpperCase().indexOf(query) > -1){
         tr.classList.remove('hidden');
       } else {
         tr.classList.add('hidden');
@@ -25,6 +27,10 @@ export const filterSearch = () => {
     });
   };
 
-  input.addEventListener('keyup', e => filter());
-  input.addEventListener('search', e => filter());
+  button.addEventListener('click', e => {
+    e.preventDefault();
+    filter();
+    form.reset();
+  });
+  // input.addEventListener('keyup', e => filter());
 };
