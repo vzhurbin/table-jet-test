@@ -14,9 +14,9 @@ const createHeader = (headerArr = []) => {
 }
 
 const createOneRow = (i) => {
-  const rowHtml = headerArr.map(el => {
+  const rowHtml = headerArr.map((el) => {
     return `
-      <td class="${el}">${data[i][el]}</td>
+      <td id="${data[i]['id']}" class="${el}">${data[i][el]}</td>
     `;
   }).join('');
   
