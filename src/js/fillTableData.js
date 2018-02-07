@@ -31,6 +31,7 @@ const createRows = (data = {}) => {
   return rowsHtml;
 }
 
+const table = document.getElementById('table');
 const fillTableData = (table) => {
   const headerHtmlString = createHeader(headerArr);
   const rowsHtmlString = createRows(data);
