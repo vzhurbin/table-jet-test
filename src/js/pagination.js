@@ -1,7 +1,7 @@
 export const pagination = (rowsPerPage) => {
   const form = document.querySelector('form');
   const input = document.querySelector('input[type=search]');
-  const button = document.querySelector('button.search');
+  const buttonSubmit = document.querySelector('button.search');
   const table = document.getElementById('table');
 
   const trArray = [...table.querySelectorAll('tr.row')];
@@ -48,11 +48,11 @@ export const pagination = (rowsPerPage) => {
     pageButtons(pageCount);
   };
   
-  // button.addEventListener('click', e => {
-  //   e.preventDefault();
-  //   filter();
-  //   form.reset();
-  // });
+  buttonSubmit.addEventListener('click', e => {
+    e.preventDefault();
+    filter();
+    form.reset();
+  });
   // input.addEventListener('keyup', e => filter());
   
   const pageButtons = (pageCount = 1) => {
