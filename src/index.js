@@ -1,9 +1,8 @@
 import fillTableData from './js/fillTableData';
 // import { filterSearch } from './js/filter';
-import { pagination } from './js/pagination';
+import dataHandlers from './js/dataHandlers';
 
 window.onload = () => {
   fillTableData();
-  pagination(5);
-  // filterSearch();
+  dataHandlers();
 }

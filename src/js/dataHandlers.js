@@ -1,19 +1,21 @@
-export const pagination = (rowsPerPage) => {
+const dataHandlers = () => {
+
+  const rowsPerPage = 5;
+
   const form = document.querySelector('form');
   const input = document.querySelector('input[type=search]');
   const buttonSubmit = document.querySelector('button.search');
   const table = document.getElementById('table');
 
   const trArray = [...table.querySelectorAll('tr.row')];
-  const pageCount = Math.ceil(trArray.length / rowsPerPage);
   
   const firstRowTag = table.rows[0].firstElementChild.tagName;
   const hasHeader = (firstRowTag === 'TH');
 
   const filter = () => {
     const query = input.value.trim().toUpperCase();
-    console.log(query);
-    const filteredRows = trArray.forEach(tr => {
+    console.log(typeof query);
+    trArray.forEach(tr => {
       let data = '';
       const tdArray = [...tr.querySelectorAll('td')];      
       tdArray.forEach(td => {
@@ -22,18 +24,23 @@ export const pagination = (rowsPerPage) => {
   
       // Check the string for a match and show/hide row as needed
       if(data.toUpperCase().indexOf(query) > -1){
+        // console.log(data.toUpperCase());
         tr.classList.remove('hidden');
       } else {
         tr.classList.add('hidden');
+        // console.log(trArray.classList.);
       }
     });
-
+    
+    const filteredRows = [...table.querySelectorAll('tr.row:not(.hidden)')];
+    console.log(filteredRows.length);
     return filteredRows;
   };
   
   const visibleRows = (pageNum = 1) => {
-    console.log('visible rows');
-    trArray.forEach((tr, i) => {
+    const filteredRows = filter();
+    const dataArray = (filteredRows.length >= 0) ? filteredRows : trArray;
+    dataArray.forEach((tr, i) => {
       const isHeader = tr.firstElementChild.tagName === 'TH';
       const startRow = (rowsPerPage * pageNum) - rowsPerPage;
       const endRow = (rowsPerPage * pageNum) - 1;
@@ -44,14 +51,15 @@ export const pagination = (rowsPerPage) => {
         tr.classList.add('hidden');
       }
     });
-
+  
+    const pageCount = Math.ceil(dataArray.length / rowsPerPage);    
     pageButtons(pageCount);
   };
   
   buttonSubmit.addEventListener('click', e => {
     e.preventDefault();
-    filter();
-    form.reset();
+    visibleRows();
+    // form.reset();
   });
   // input.addEventListener('keyup', e => filter());
   
@@ -76,10 +84,9 @@ export const pagination = (rowsPerPage) => {
       const btn = document.getElementById(`page-btn-${i}`);
       btn.addEventListener('click', e => visibleRows(i));
     }
-    // console.log(buttonsDiv);
   }
   
-  // pageButtons(pageCount);
   visibleRows();
-  };
+};
   
+  export default dataHandlers;
