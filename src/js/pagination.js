@@ -4,8 +4,8 @@ export const pagination = (rowsPerPage = 7) => {
   const firstRowTag = table.rows[0].firstElementChild.tagName;
   // boolean var to check if table has a head row
   const hasHead = (firstRowTag === 'TH');
-  // loop counters; to start count from rows[1] (2nd row) if the first row has a head tag
-  let firstDataRow = (hasHead) ? 1 : 0;
+  // start from 2nd row if the first row is header
+  const firstDataRow = (hasHead) ? 1 : 0;
   // holds the first row if it has a (<TH>) & nothing if (<TD>)
   const header = (hasHead) ? table.rows[(0)].outerHTML : '';
   // count the number of pages
