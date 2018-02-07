@@ -1,7 +1,7 @@
 const sortColumn = tdClass => {
   let i, len, x, y, shouldSwitch, dir;
   let switchcount = 0;
-  const table = document.getElementById('table');
+  const table = document.querySelector('table');
   const rows = table.getElementsByTagName('TR');
   let switching = true;
   //Set the sorting direction to ascending:

@@ -1,4 +1,5 @@
 import { data } from '../Data';
+import sortColumn from './sortColumn';
 
 const headerArr = Object.keys(data[0]);
 
@@ -9,7 +10,6 @@ const createHeader = (headerArr = []) => {
     `;
   }).join('');
 
-  console.log(headerHtml);
   return `<tr class="header">${headerHtml}</tr>`;
 }
 
@@ -32,7 +32,7 @@ const createRows = (data = {}) => {
 }
 
 const table = document.getElementById('table');
-const fillTableData = (table) => {
+const fillTableData = () => {
   const headerHtmlString = createHeader(headerArr);
   const rowsHtmlString = createRows(data);
   const tableDataHtmlString = headerHtmlString + rowsHtmlString
@@ -40,17 +40,12 @@ const fillTableData = (table) => {
   table.innerHTML = tableDataHtmlString;
 };
 
-// header.addEventListener('click', e => sortColumn('name'));
 const headerListeners = () => {
   for (let i = 0, len = headerArr.length; i < len; i++) {
     let headerName = headerArr[i];
-    // console.log(headerName);
-    // console.log(typeof headerName);
-    // console.log(typeof `.${headerName}`);
-    // let header = document.querySelector(`th.${headerName}`);
-    const header = body.getElementById(`header-${i}`);
-    console.log(header);
-    console.log(`header-${i}`);
+    const header = document.getElementById(`header-${i}`);
+    // console.log(header);
+    // console.log(`header-${i}`);
     header.addEventListener('click', e => sortColumn(headerName));
   }
 }
