@@ -23,6 +23,11 @@ input[type=search]:focus{
 
 .hidden { display: none; }
 
+.active {
+	background-color: #ff4d4d;
+	color :#fff;
+}
+
 #table {
   border-collapse: collapse; /* Collapse borders */
   width: 100%; /* Full-width */

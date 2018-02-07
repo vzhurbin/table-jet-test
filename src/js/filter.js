@@ -9,6 +9,7 @@ export const filterSearch = () => {
   
   const filter = () => {
     const query = input.value.trim().toUpperCase();
+    console.log(query);
     // Loop the rows
     trArray.forEach(tr => {
       let data = '';
