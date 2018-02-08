@@ -4,21 +4,41 @@
 *::after,
 *::before {
   box-sizing: inherit;
+  font-family: 'Roboto', sans-serif;
 }
 
 html { 
   box-sizing: border-box;
 }
 
-input[type=search]{
+form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button.search,
+input[type=search] {
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 10px;
+}
+
+button.search {
+  width: 7%;
+  border-style: solid;
+  margin-left: 5px;
+}
+
+input[type=search] {
+  width: 25%;
+  /* border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px; */
   border: 1px solid #ddd
 }
 
 input[type=search]:focus{
-  box-shadow:0 0 4px blue;
+  box-shadow:0 0 4px rgb(89, 89, 146);
 }
 
 .hidden { display: none; }
@@ -28,32 +48,63 @@ input[type=search]:focus{
 	color :#fff;
 }
 
-#table {
-  border-collapse: collapse; /* Collapse borders */
-  width: 100%; /* Full-width */
-  border: 1px solid #ddd; /* Add a grey border */
-  font-size: 18px; /* Increase font-size */
-}
-
-#table th, #table td {
-  text-align: left; /* Left-align text */
-  padding: 12px; /* Add padding */
-}
-
-#table tr {
-  /* Add a bottom border to all table rows */
-  border-bottom: 1px solid #ddd; 
-}
-
-#table tr.header, #table tr:hover {
-  /* Add a grey background color to the table header and on hover */
-  background-color: #f1f1f1;
+table {
+  width: 100%;
+  border-bottom: 2px solid black;
+  border-collapse: collapse;
+  
 }
 
 .header {
   cursor: pointer;
+  font-size: 12px;
+  border-bottom: 2px solid black;
+  
 }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2
+th, td {
+  text-align: left;
+  padding: 12px;
+  
+}
+
+tr {
+  font-size: 13px;
+  border-bottom: #ff4d4d;
+  
+}
+
+/* tr:hover {
+  background-color: rgb(179, 176, 176);
+} */
+
+tr.row:nth-child(even) {
+  background-color: #f2f2f2;
+  border-bottom: #ff4d4d;
+}
+
+#buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  
+}
+
+input[type=button] {
+  padding: 10px;
+  margin: 2px;
+  border: none;
+  background: transparent;
+  
+  
+  
+  /* border-style: solid; */
+}
+
+input[type=button]:hover {
+  background: grey;
+}
+
+input[type=button].active {
+  background: grey;
 }
