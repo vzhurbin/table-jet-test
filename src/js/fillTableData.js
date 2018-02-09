@@ -32,9 +32,9 @@ const createOneRow = i => {
 };
 
 const sortByColumn = (array, key) => {
-  const result = array.sort((a, b) => {
-    const x = a[key];
-    const y = b[key];
+  return array.sort((a, b) => {
+    const x = a[key].toUpperCase();
+    const y = b[key].toUpperCase();
     if (x < y) {
       return -1;
     }
@@ -44,12 +44,32 @@ const sortByColumn = (array, key) => {
 
     return 0;
   });
-  return result;
 };
 
-const createRows = (sortKey = headerArr[0]) => {
-  const sortedData = sortByColumn(data, sortKey);
-  const rowsHtml = sortedData
+// const isAscending = arr => {
+//   return arr.every((x, i) => {
+//     return i === 0 || x >= arr[i - 1];
+//   });
+// };
+
+const isAscending = arr => {
+  return arr.every((val, i, arr) => {
+    !i || val >= arr[i - 1];
+  });
+};
+
+const table = document.getElementById('table');
+const tdArray = [...table.querySelectorAll('td')];
+console.log(tdArray.length);
+
+const createRows = (isAssending = true, sortKey = headerArr[0]) => {
+  const sortColArr = tdArray.forEach(td => {
+    return [...td.textContent];
+  })
+  console.log(sortColArr);
+  const newData = sortByColumn(data, sortKey);
+  // const sortedData = isAscending(sortColArr) ? newData.reverse() : newData;
+  const rowsHtml = newData
     .map((el, i) => {
       return createOneRow(i);
     })
@@ -59,7 +79,6 @@ const createRows = (sortKey = headerArr[0]) => {
 };
 
 const fillTableData = (rows = createRows()) => {
-  const table = document.getElementById('table');
   const header = createHeader(headerArr);
   const tableDataHtmlString = header + rows;
   table.innerHTML = tableDataHtmlString;
