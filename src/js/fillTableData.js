@@ -47,9 +47,7 @@ const fillTableData = () => {
 
   headerArr.forEach((el, i) => {
     const header = document.getElementById(`header-${i}`);
-    header.addEventListener('click', e => {
-      sortColumn(el);
-    });
+    header.addEventListener('click', e => sortColumn(el));
   });
 };
 

@@ -18,6 +18,9 @@
         "singleQuote": true, 
         "trailingComma": "all"
       }
-    ]
+    ],
+
+    "no-unused-vars": [
+      2, {"args": "after-used", "argsIgnorePattern": "e"}]
   }
 }
