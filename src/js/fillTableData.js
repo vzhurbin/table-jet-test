@@ -1,7 +1,7 @@
 import { data } from '../Data';
 import sortColumn from './sortColumn';
 
-const headerArr = Object.keys(data[0]);
+const headerArr = Object.keys(data[0]).slice(1);
 
 const createHeader = (headerArr = []) => {
   const headerHtml = headerArr
