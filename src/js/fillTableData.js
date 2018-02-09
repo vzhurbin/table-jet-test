@@ -1,15 +1,17 @@
 import { data } from '../Data';
 import dataHandlers from './dataHandlers';
+import sortData from './sorting';
 
 const headerArr = Object.keys(data[0]).slice(1);
+
+const formatHeader = str => {
+  str = str.replace('_', ' ');
+  return str && str[0].toUpperCase() + str.slice(1);
+};
 
 const createHeader = () => {
   const headerHtml = headerArr
     .map((el, i) => {
-      const formatHeader = str => {
-        str = str.replace('_', ' ');
-        return str && str[0].toUpperCase() + str.slice(1);
-      };
       return `
         <th class="${el}" id="header-${i}">${formatHeader(el)}</th>
       `;
@@ -53,7 +55,6 @@ const fillTableData = (rows = createRows()) => {
       const rows = createRows(th.className);
       fillTableData(rows);
       dataHandlers();
-      sorting();
     });
   });
 };
