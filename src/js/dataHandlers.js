@@ -3,14 +3,13 @@ const dataHandlers = () => {
 
   const input = document.querySelector('input[type=search]');
   const buttonSubmit = document.querySelector('button.search');
-  const table = document.getElementById('table');
-  const trArray = [...table.querySelectorAll('tr.row')];
+  const trArray = Array.from(document.querySelectorAll('tr.row'));
 
   const filter = () => {
     const query = input.value.trim().toUpperCase();
     trArray.forEach(tr => {
       let data = '';
-      const tdArray = [...tr.querySelectorAll('td')];
+      const tdArray = Array.from(tr.querySelectorAll('td'));
       tdArray.forEach(td => {
         data += td.textContent;
       });
@@ -22,7 +21,9 @@ const dataHandlers = () => {
       }
     });
 
-    const filteredRows = [...table.querySelectorAll('tr.row:not(.hidden)')];
+    const filteredRows = Array.from(
+      document.querySelectorAll('tr.row:not(.hidden)')
+    );
     return filteredRows;
   };
 
@@ -69,7 +70,7 @@ const dataHandlers = () => {
     const pageCount = Math.ceil(dataArray.length / rowsPerPage);
     pageButtons(pageCount, curPage);
 
-    const buttons = [...document.querySelectorAll('.page-button')];
+    const buttons = Array.from(document.querySelectorAll('.page-button'));
     buttons.forEach((button, i) => {
       if (i === curPage) {
         button.classList.remove('inactive');

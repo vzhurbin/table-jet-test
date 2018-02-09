@@ -31,45 +31,8 @@ const createOneRow = i => {
   return `<tr class="row">${rowHtml}</tr>`;
 };
 
-const sortByColumn = (array, key) => {
-  return array.sort((a, b) => {
-    const x = a[key].toUpperCase();
-    const y = b[key].toUpperCase();
-    if (x < y) {
-      return -1;
-    }
-    if (x > y) {
-      return 1;
-    }
-
-    return 0;
-  });
-};
-
-// const isAscending = arr => {
-//   return arr.every((x, i) => {
-//     return i === 0 || x >= arr[i - 1];
-//   });
-// };
-
-const isAscending = arr => {
-  return arr.every((val, i, arr) => {
-    !i || val >= arr[i - 1];
-  });
-};
-
-const table = document.getElementById('table');
-const tdArray = [...table.querySelectorAll('td')];
-console.log(tdArray.length);
-
-const createRows = (isAssending = true, sortKey = headerArr[0]) => {
-  const sortColArr = tdArray.forEach(td => {
-    return [...td.textContent];
-  })
-  console.log(sortColArr);
-  const newData = sortByColumn(data, sortKey);
-  // const sortedData = isAscending(sortColArr) ? newData.reverse() : newData;
-  const rowsHtml = newData
+const createRows = () => {
+  const rowsHtml = data
     .map((el, i) => {
       return createOneRow(i);
     })
@@ -81,14 +44,16 @@ const createRows = (isAssending = true, sortKey = headerArr[0]) => {
 const fillTableData = (rows = createRows()) => {
   const header = createHeader(headerArr);
   const tableDataHtmlString = header + rows;
+  const table = document.getElementById('table');
   table.innerHTML = tableDataHtmlString;
 
-  const thArray = [...table.querySelectorAll('th')];
+  const thArray = Array.from(document.querySelectorAll('th'));
   thArray.forEach(th => {
     th.addEventListener('click', e => {
       const rows = createRows(th.className);
       fillTableData(rows);
       dataHandlers();
+      sorting();
     });
   });
 };
