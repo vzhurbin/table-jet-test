@@ -1,5 +1,5 @@
 const dataHandlers = () => {
-  const rowsPerPage = 5;
+  const rowsPerPage = 10;
 
   const form = document.querySelector('form');
   const input = document.querySelector('input[type=search]');
@@ -34,13 +34,13 @@ const dataHandlers = () => {
     return filteredRows;
   };
 
-  const visibleRows = (pageNum = 1) => {
+  const visibleRows = (curPage = 1) => {
     const filteredRows = filter();
     const dataArray = filteredRows.length >= 0 ? filteredRows : trArray;
     dataArray.forEach((tr, i) => {
       const isHeader = tr.firstElementChild.tagName === 'TH';
-      const startRow = rowsPerPage * pageNum - rowsPerPage;
-      const endRow = rowsPerPage * pageNum - 1;
+      const startRow = rowsPerPage * curPage - rowsPerPage;
+      const endRow = rowsPerPage * curPage - 1;
 
       if (isHeader || (i >= startRow && i <= endRow)) {
         tr.classList.remove('hidden');
@@ -50,14 +50,14 @@ const dataHandlers = () => {
     });
 
     const pageCount = Math.ceil(dataArray.length / rowsPerPage);
-    pageButtons(pageCount);
+    pageButtons(pageCount, curPage);
 
-    const buttons = [...document.querySelectorAll('.btn')];
-    buttons.forEach((btn, i) => {
-      if (i + 1 === pageNum) {
-        btn.classList.add('active');
+    const buttons = [...document.querySelectorAll('.page-button')];
+    buttons.forEach((button, i) => {
+      if (i === curPage) {
+        button.classList.remove('inactive');
       } else {
-        btn.classList.remove('active');
+        button.classList.add('inactive');
       }
     });
   };
@@ -69,30 +69,34 @@ const dataHandlers = () => {
   });
   // input.addEventListener('keyup', e => filter());
 
-  const pageButtons = (pageCount = 1) => {
-    /* disable the 'Prev' button on 1st page
-    and 'Next' button on last page 
-    const	disablePrevious = (cur === 1) ? 'disabled' : '';
-    const disableNext = (cur === pCount) ? 'disabled' : '';
-    */
-    // let buttons =
-    // `<input type="button" value="&lt;&lt; Prev" id="page-0" onclick="sort(${cur - 1})" ${prevDis}>`;
-    let buttons = '';
+  const pageButtons = (pageCount = 1, curPage) => {
+    // disable the 'Prev' button on 1st page
+    // and 'Next' button on last page 
+    const	disablePrevious = (curPage === 1) ? 'disabled' : '';
+    const disableNext = (curPage === pageCount) ? 'disabled' : '';
+    
+    let buttons =
+    `<input class="page-button switch prev" id="page-button-0" type="button" value="Previous" ${disablePrevious}>`;
     for (let i = 1; i <= pageCount; i++) {
-      buttons += `<input class="btn" type="button" id="page-btn-${i}" value="${i}">`;
+      buttons += `<input class="page-button num" type="button" id="page-button-${i}" value="${i}">`;
     }
-    // buttons += `<input type="button" value="Next &gt;&gt;" id="page-${i + 1}" onclick="sort(${(cur + 1)})" ${nextDis}>`;
+    buttons += `<input class="page-button switch next" id="page-button-${pageCount + 1}" type="button" value="Next" ${disableNext}>`;
 
-    const buttonsDiv = document.getElementById('buttons');
+    const buttonsDiv = document.getElementById('page-buttons');
     buttonsDiv.innerHTML = buttons;
 
-    for (let i = 1; i <= pageCount; i++) {
-      const btn = document.getElementById(`page-btn-${i}`);
-      btn.addEventListener('click', e => {
-        visibleRows(i);
-        btn.classList.add('active');
+    for (let j = 1; j <= pageCount; j++) {
+      const button = document.getElementById(`page-button-${j}`);
+      button.addEventListener('click', e => {
+        visibleRows(j);
       });
     }
+
+    const buttonPrev = document.querySelector('.switch.prev');
+    buttonPrev.addEventListener('click', e => visibleRows(curPage - 1));
+    const buttonNext = document.querySelector('.switch.next');
+    buttonNext.addEventListener('click', e => visibleRows(curPage + 1));
+
   };
 
   visibleRows();
