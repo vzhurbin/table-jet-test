@@ -1,9 +1,9 @@
 import { data } from '../Data';
-import sortColumn from './sortColumn';
+import dataHandlers from './dataHandlers';
 
 const headerArr = Object.keys(data[0]).slice(1);
 
-const createHeader = (headerArr = []) => {
+const createHeader = () => {
   const headerHtml = headerArr
     .map((el, i) => {
       const formatHeader = str => {
@@ -11,7 +11,7 @@ const createHeader = (headerArr = []) => {
         return str && str[0].toUpperCase() + str.slice(1);
       };
       return `
-        <th id="header-${i}">${formatHeader(el)}</th>
+        <th class="${el}" id="header-${i}">${formatHeader(el)}</th>
       `;
     })
     .join('');
@@ -31,8 +31,25 @@ const createOneRow = i => {
   return `<tr class="row">${rowHtml}</tr>`;
 };
 
-const createRows = (data = {}) => {
-  const rowsHtml = data
+const sortByColumn = (array, key) => {
+  const result = array.sort((a, b) => {
+    const x = a[key];
+    const y = b[key];
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+
+    return 0;
+  });
+  return result;
+};
+
+const createRows = (sortKey = headerArr[0]) => {
+  const sortedData = sortByColumn(data, sortKey);
+  const rowsHtml = sortedData
     .map((el, i) => {
       return createOneRow(i);
     })
@@ -41,17 +58,19 @@ const createRows = (data = {}) => {
   return rowsHtml;
 };
 
-const table = document.getElementById('table');
-const fillTableData = () => {
-  const headerHtmlString = createHeader(headerArr);
-  const rowsHtmlString = createRows(data);
-  const tableDataHtmlString = headerHtmlString + rowsHtmlString;
-
+const fillTableData = (rows = createRows()) => {
+  const table = document.getElementById('table');
+  const header = createHeader(headerArr);
+  const tableDataHtmlString = header + rows;
   table.innerHTML = tableDataHtmlString;
 
-  headerArr.forEach((el, i) => {
-    const header = document.getElementById(`header-${i}`);
-    header.addEventListener('click', e => sortColumn(el));
+  const thArray = [...table.querySelectorAll('th')];
+  thArray.forEach(th => {
+    th.addEventListener('click', e => {
+      const rows = createRows(th.className);
+      fillTableData(rows);
+      dataHandlers();
+    });
   });
 };
 

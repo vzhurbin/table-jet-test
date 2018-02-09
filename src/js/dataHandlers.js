@@ -4,9 +4,7 @@ const dataHandlers = () => {
   const input = document.querySelector('input[type=search]');
   const buttonSubmit = document.querySelector('button.search');
   const table = document.getElementById('table');
-
   const trArray = [...table.querySelectorAll('tr.row')];
-
 
   const filter = () => {
     const query = input.value.trim().toUpperCase();
