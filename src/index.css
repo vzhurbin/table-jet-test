@@ -1,14 +1,8 @@
-/* Page styling 
-============================= */
 *,
 *::after,
 *::before {
   box-sizing: inherit;
   font-family: 'Roboto', sans-serif;
-}
-
-html { 
-  box-sizing: border-box;
 }
 
 form {
@@ -31,21 +25,11 @@ button.search {
 
 input[type=search] {
   width: 25%;
-  /* border-radius: 5px;
-  padding: 5px;
-  margin-bottom: 10px; */
   border: 1px solid #ddd
 }
 
 input[type=search]:focus{
   box-shadow:0 0 4px rgb(89, 89, 146);
-}
-
-.hidden { display: none; }
-
-.active {
-	background-color: #ff4d4d;
-	color :#fff;
 }
 
 table {
@@ -62,13 +46,15 @@ table {
   
 }
 
+.hidden { display: none; }
+
 th, td {
   text-align: left;
   padding: 12px;
   
 }
 
-tr {
+td {
   font-size: 13px;
   border-bottom: #ff4d4d;
   
@@ -86,14 +72,7 @@ tr.row:nth-child(even) {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
-  
 }
-
-/* .page-button.num {
-  background: lightgray;
-  border: inherit;
-  border: 1px solid black;
-} */
 
 .page-button.inactive {
   padding: 8px;
