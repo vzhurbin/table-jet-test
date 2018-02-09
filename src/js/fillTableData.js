@@ -6,9 +6,13 @@ const headerArr = Object.keys(data[0]);
 const createHeader = (headerArr = []) => {
   const headerHtml = headerArr
     .map((el, i) => {
+      const formatHeader = str => {
+        str = str.replace('_', ' ');
+        return str && str[0].toUpperCase() + str.slice(1);
+      };
       return `
-      <th id="header-${i}">${el}</th>
-    `;
+        <th id="header-${i}">${formatHeader(el)}</th>
+      `;
     })
     .join('');
 

@@ -39,13 +39,6 @@ table {
   
 }
 
-.header {
-  cursor: pointer;
-  font-size: 12px;
-  border-bottom: 2px solid black;
-  
-}
-
 .hidden { display: none; }
 
 th, td {
@@ -57,8 +50,10 @@ th, td {
 
 th {
   position: relative;
+  cursor: pointer;
+  font-size: 12px;
+  border-bottom: 2px solid black;
 }
-
 
 th:before,
 th:after {
