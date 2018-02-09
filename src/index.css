@@ -1,7 +1,7 @@
 *,
 *::after,
 *::before {
-  box-sizing: inherit;
+  box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -54,9 +54,47 @@ th, td {
   
 }
 
+
+th {
+  position: relative;
+}
+
+
+th:before,
+th:after {
+  border: 4px solid transparent;
+	content: "";
+	display: block;
+	height: 0;
+  width: 0;
+	right: 5px;
+	top: 50%;
+	position: absolute;
+}
+
+th.sorted-asc:before {
+  border-top: 4px solid #666;
+	margin-top: 2px;
+}
+
+th.sorted-desc:after {
+  border-bottom: 4px solid #666;
+	margin-top: 2px;
+}
+
+th:before {
+  border-bottom: 4px solid #666;
+	margin-top: -9px;
+}
+
+th:after {
+  border-top: 4px solid #666;
+	margin-top: 2px;
+}
+
 td {
   font-size: 13px;
-  border-bottom: #ff4d4d;
+  border-bottom: 1px solid #E0E0E0;
   
 }
 
