@@ -2,10 +2,20 @@ import dataHandlers from './dataHandlers';
 import { fillData } from './fillTableData';
 import { data } from '../Data';
 
+const strFormat = str => {
+  let newStr = str.trim();
+  const isUsd = str => str.match(/^\$/) !== null;
+  if (isUsd(newStr)) {
+    return Number(newStr.replace(/[^0-9.-]+/g, ''));
+  } else {
+    return newStr.toUpperCase();
+  }
+};
+
 const sortAscending = (data, key) => {
   return data.sort((a, b) => {
-    const x = a[key].toUpperCase();
-    const y = b[key].toUpperCase();
+    const x = strFormat(a[key]);
+    const y = strFormat(b[key]);
     return x > y ? 1 : x < y ? -1 : 0;
   });
 };
@@ -20,9 +30,10 @@ const sortData = sortKey => {
   const tdArray = Array.from(document.querySelectorAll(`td.${sortKey}`));
   let sortCol = [];
   tdArray.forEach(td => {
-    sortCol.push(td.textContent);
+    const value = strFormat(td.textContent);
+    sortCol.push(value);
   });
-  console.log(isAsc(sortCol));
+  console.log('Ascending: ' + isAsc(sortCol));
   const sortAsc = sortAscending(data, sortKey);
 
   return isAsc(sortCol) ? sortAsc.reverse() : sortAsc;
@@ -33,7 +44,6 @@ const headerListeners = () => {
   thArray.forEach(th => {
     th.addEventListener('click', e => {
       const sortedData = sortData(th.className);
-      console.log(th.className);
       fillData(sortedData);
       dataHandlers();
     });
