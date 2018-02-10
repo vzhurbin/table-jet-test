@@ -34,17 +34,30 @@ const sortData = sortKey => {
     sortCol.push(value);
   });
   const sortAsc = sortAscending(data, sortKey);
-
-  return isAsc(sortCol) ? sortAsc.reverse() : sortAsc;
+  const header = document.querySelector(`th.${sortKey}`);
+  if (isAsc(sortCol)) {
+    header.classList.add('sorted-desc');
+    return sortAsc.reverse();
+  } else {
+    header.classList.add('sorted-asc');
+    return sortAsc;
+  }
 };
 
 const headerListeners = () => {
   const thArray = Array.from(document.querySelectorAll('th'));
   thArray.forEach(th => {
     th.addEventListener('click', e => {
-      const sortedData = sortData(th.className);
+      thArray.forEach(th => {
+        th.classList.remove('sorted-desc', 'sorted-asc');
+      });
+      const sortedData = sortData(th.id);
       fillData(sortedData);
       dataHandlers();
+      const tdArray = Array.from(document.querySelectorAll(`td.${th.id}`));
+      tdArray.forEach(td => {
+        td.classList.add('sorted');
+      });
     });
   });
 };

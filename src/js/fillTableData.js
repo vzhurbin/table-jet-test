@@ -9,9 +9,9 @@ const formatHeader = str => {
 
 const createHeader = () => {
   const headerHtml = headerArr
-    .map((el, i) => {
+    .map(el => {
       return `
-        <th class="${el}" id="header-${i}">${formatHeader(el)}</th>
+        <th id="${el}" class="${el}">${formatHeader(el)}</th>
       `;
     })
     .join('');
@@ -23,7 +23,7 @@ const createOneRow = (arrOfObj, i) => {
   const rowHtml = headerArr
     .map(el => {
       return `
-        <td id="${arrOfObj[i]['id']}" class="${el}">${arrOfObj[i][el]}</td>
+        <td class="${el}">${arrOfObj[i][el]}</td>
       `;
     })
     .join('');

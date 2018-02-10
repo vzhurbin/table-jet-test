@@ -3,58 +3,82 @@
 *::before {
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
+  font-size: 13px;  
 }
 
+/* search form */
 form {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  align-content: center;
 }
 
 button.search,
 input[type=search] {
   border-radius: 5px;
-  padding: 5px;
-  margin-bottom: 10px;
+  padding: 6px;
+  margin-bottom: 10px 5px;
+  border: 1px solid #ddd  
 }
 
 button.search {
   width: 7%;
   border-style: solid;
-  margin-left: 5px;
 }
 
 input[type=search] {
+  margin-right: 5px;
   width: 25%;
-  border: 1px solid #ddd
 }
 
 input[type=search]:focus{
-  box-shadow:0 0 4px rgb(89, 89, 146);
+  box-shadow:0 0 4px lightslategrey;
 }
 
+/* table */
 table {
   width: 100%;
-  border-bottom: 2px solid black;
   border-collapse: collapse;
-  
 }
 
-.hidden { display: none; }
+tbody.data {
+  border-top: 2px solid black;  
+  border-bottom: 2px solid black;  
+}
+
+.hidden { 
+  display: none; 
+}
 
 th, td {
   text-align: left;
   padding: 12px;
-  
 }
-
 
 th {
   position: relative;
   cursor: pointer;
   font-size: 12px;
-  border-bottom: 2px solid black;
 }
 
+td {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+tr.row:nth-child(even) {
+  /* background-color: #f2f2f2; */
+}
+
+td:nth-child(even) {
+  
+}
+
+td.sorted:nth-of-type(3n+3) {
+  background-color: #882828b7;
+}
+
+/* sorting arrows */
 th:before,
 th:after {
   border: 4px solid transparent;
@@ -67,14 +91,12 @@ th:after {
 	position: absolute;
 }
 
-th.sorted-asc:before {
-  border-top: 4px solid #666;
-	margin-top: 2px;
+th.sorted-desc:before {
+  border: none;
 }
 
-th.sorted-desc:after {
-  border-bottom: 4px solid #666;
-	margin-top: 2px;
+th.sorted-asc:after {
+  border: none;
 }
 
 th:before {
@@ -87,17 +109,8 @@ th:after {
 	margin-top: 2px;
 }
 
-td {
-  font-size: 13px;
-  border-bottom: 1px solid #E0E0E0;
-  
-}
-
-tr.row:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#page-buttons {
+/* buttons */
+.page-buttons {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
@@ -113,6 +126,7 @@ tr.row:nth-child(even) {
 .page-button.inactive:hover {
   background: lightgray;
   border-radius: 5px;
+  padding: 8px;
 }
 
 

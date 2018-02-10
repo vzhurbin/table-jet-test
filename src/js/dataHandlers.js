@@ -36,7 +36,7 @@ const dataHandlers = () => {
     }
     buttons += `<input class="page-button switch next" id="page-button-${pageCount+1}" type="button" value="Next" ${disableNext}>`;
 
-    const buttonsDiv = document.getElementById('page-buttons');
+    const buttonsDiv = document.querySelector('.page-buttons');
     buttonsDiv.innerHTML = buttons;
 
     for (let j = 1; j <= pageCount; j += 1) {
