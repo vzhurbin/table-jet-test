@@ -49,4 +49,4 @@ const headerListeners = () => {
   });
 };
 
-export { headerListeners, sortData };
+export default headerListeners;
