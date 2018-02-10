@@ -1,5 +1,9 @@
-const sortArrOfObj = (array, key) => {
-  return array.sort((a, b) => {
+import dataHandlers from './dataHandlers';
+import { fillData } from './fillTableData';
+import { data } from '../Data';
+
+const sortAscending = (data, key) => {
+  return data.sort((a, b) => {
     const x = a[key].toUpperCase();
     const y = b[key].toUpperCase();
     return x > y ? 1 : x < y ? -1 : 0;
@@ -12,22 +16,33 @@ const sortArrOfObj = (array, key) => {
 //   });
 // };
 
-const isAscending = arr => {
+const isAsc = arr => {
   return arr.every((val, i, arr) => {
     !i || val >= arr[i - 1];
   });
 };
 
-const sorting = (data, sortKey) => {
+const sortData = sortKey => {
   const tdArray = Array.from(document.querySelectorAll(`td.${sortKey}`));
   let sortCol = [];
   tdArray.forEach(td => {
     sortCol.push(td.textContent);
   });
-  console.log(isAscending(sortCol));
-  const sortAscendig = sortArrOfObj(data, sortKey);
+  const sortAsc = sortAscending(data, sortKey);
 
-  return !isAscending(sortCol) ? sortAscendig : sortAscendig.reverse();
+  return !isAsc(sortCol) ? sortAsc : sortAsc.reverse();
 };
 
-export default sorting;
+const headerListeners = () => {
+  const thArray = Array.from(document.querySelectorAll('th'));
+  thArray.forEach(th => {
+    th.addEventListener('click', e => {
+      const sortedData = sortData(th.className);
+      console.log(th.className);
+      fillData(sortedData);
+      dataHandlers();
+    });
+  });
+};
+
+export { headerListeners, sortData };

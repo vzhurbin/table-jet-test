@@ -1,6 +1,4 @@
 import { data } from '../Data';
-import dataHandlers from './dataHandlers';
-import sortData from './sorting';
 
 const headerArr = Object.keys(data[0]).slice(1);
 
@@ -13,7 +11,9 @@ const createHeader = () => {
   const headerHtml = headerArr
     .map((el, i) => {
       return `
-        <th class="${el}" id="header-${i}">${formatHeader(el)}</th>
+        <th class="${el}" id="header-${i}">
+          ${formatHeader(el)}
+        </th>
       `;
     })
     .join('');
@@ -21,42 +21,38 @@ const createHeader = () => {
   return `<tr class="header">${headerHtml}</tr>`;
 };
 
-const createOneRow = i => {
+const createOneRow = (arrOfObj, i) => {
   const rowHtml = headerArr
     .map(el => {
       return `
-      <td id="${data[i]['id']}" class="${el}">${data[i][el]}</td>
-    `;
+        <td id="${arrOfObj[i]['id']}" class="${el}">
+          ${arrOfObj[i][el]}
+        </td>
+      `;
     })
     .join('');
 
   return `<tr class="row">${rowHtml}</tr>`;
 };
 
-const createRows = () => {
-  const rowsHtml = data
+const createRows = arrOfObj => {
+  return arrOfObj
     .map((el, i) => {
-      return createOneRow(i);
+      return createOneRow(arrOfObj, i);
     })
     .join('');
-
-  return rowsHtml;
 };
 
-const fillTableData = (rows = createRows()) => {
-  const header = createHeader(headerArr);
-  const tableDataHtmlString = header + rows;
-  const table = document.getElementById('table');
-  table.innerHTML = tableDataHtmlString;
-
-  const thArray = Array.from(document.querySelectorAll('th'));
-  thArray.forEach(th => {
-    th.addEventListener('click', e => {
-      const rows = createRows(th.className);
-      fillTableData(rows);
-      dataHandlers();
-    });
-  });
+const fillHeader = () => {
+  const headerBody = document.querySelector('tbody.header');
+  const headerHtml = createHeader(data);
+  headerBody.insertAdjacentHTML('afterBegin', headerHtml);
 };
 
-export default fillTableData;
+const fillData = (arrOfObj = data) => {
+  const dataBody = document.querySelector('tbody.data');
+  const rowsHtml = createRows(arrOfObj);
+  dataBody.innerHTML = rowsHtml;
+};
+
+export { fillData, fillHeader };

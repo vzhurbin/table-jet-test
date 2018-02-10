@@ -1,7 +1,11 @@
-import fillTableData from './js/fillTableData';
+import { fillData, fillHeader } from './js/fillTableData';
 import dataHandlers from './js/dataHandlers';
+import { headerListeners } from './js/sorting';
+// import { data } from './Data';
 
 window.onload = () => {
-  fillTableData();
+  fillHeader();
+  fillData();
   dataHandlers();
+  headerListeners();
 };
