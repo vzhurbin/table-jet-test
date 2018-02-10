@@ -33,7 +33,6 @@ const sortData = sortKey => {
     const value = strFormat(td.textContent);
     sortCol.push(value);
   });
-  console.log('Ascending: ' + isAsc(sortCol));
   const sortAsc = sortAscending(data, sortKey);
 
   return isAsc(sortCol) ? sortAsc.reverse() : sortAsc;
@@ -50,4 +49,4 @@ const headerListeners = () => {
   });
 };
 
-export { headerListeners, sortData };
+export default headerListeners;
