@@ -66,11 +66,11 @@ td {
   border-bottom: 1px solid #E0E0E0;
 }
 
-tr.row:nth-child(even) {
+tr:not(.hidden):nth-child(even) {
   background-color: #ECEFF1;
 }
 
-tr:nth-child(even) td.sorted {
+tr:not(.hidden):nth-child(even) td.sorted {
   background-color: #CFD8DC;
 }
 
