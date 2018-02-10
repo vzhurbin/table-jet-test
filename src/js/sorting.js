@@ -10,15 +10,9 @@ const sortAscending = (data, key) => {
   });
 };
 
-// const isAscending = arr => {
-//   return arr.every((x, i) => {
-//     return i === 0 || x >= arr[i - 1];
-//   });
-// };
-
 const isAsc = arr => {
-  return arr.every((val, i, arr) => {
-    !i || val >= arr[i - 1];
+  return arr.every((x, i) => {
+    return i === 0 || x >= arr[i - 1];
   });
 };
 
@@ -28,9 +22,10 @@ const sortData = sortKey => {
   tdArray.forEach(td => {
     sortCol.push(td.textContent);
   });
+  console.log(isAsc(sortCol));
   const sortAsc = sortAscending(data, sortKey);
 
-  return !isAsc(sortCol) ? sortAsc : sortAsc.reverse();
+  return isAsc(sortCol) ? sortAsc.reverse() : sortAsc;
 };
 
 const headerListeners = () => {
