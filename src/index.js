@@ -5,6 +5,6 @@ import headerListeners from './js/sorting';
 window.onload = () => {
   fillHeader();
   fillData();
-  dataHandlers();
+  dataHandlers(11); // rows per page, default = 10
   headerListeners();
 };

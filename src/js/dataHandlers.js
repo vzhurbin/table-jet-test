@@ -21,7 +21,8 @@ const filter = () => {
   return visibleRows;
 };
 
-const pageButtons = (pageCount = 1, curPage) => {
+const pageButtons = (data, rowsPerPage, curPage) => {
+  const pageCount = Math.ceil(data.length / rowsPerPage);  
   const disablePrevious = curPage === 1 ? 'disabled' : '';
   const disableNext = curPage === pageCount ? 'disabled' : '';
 
@@ -39,17 +40,21 @@ const pageButtons = (pageCount = 1, curPage) => {
   for (let j = 1; j <= pageCount; j += 1) {
     const button = document.querySelector(`#page-btn-${j}`);
     button.addEventListener('click', e => {
-      visibleRows(j);
+      visibleRows(rowsPerPage, j);
     });
   }
 
   const buttonPrev = document.querySelector('.switch.prev');
-  buttonPrev.addEventListener('click', e => visibleRows(curPage - 1));
+  buttonPrev.addEventListener('click', e => {
+    visibleRows(rowsPerPage, curPage - 1);
+  });
   const buttonNext = document.querySelector('.switch.next');
-  buttonNext.addEventListener('click', e => visibleRows(curPage + 1));
+  buttonNext.addEventListener('click', e => {
+    visibleRows(rowsPerPage, curPage + 1);
+  });
 };
 
-const visibleRows = (curPage = 1, rowsPerPage = 10) => {
+const visibleRows = (rowsPerPage = 10, curPage = 1) => {
   const filteredRows = filter();
   const allRows = Array.from(document.querySelectorAll('tr.row'));
   const dataArray = filteredRows.length >= 0 ? filteredRows : allRows;
@@ -58,7 +63,7 @@ const visibleRows = (curPage = 1, rowsPerPage = 10) => {
     const endRow = rowsPerPage * curPage - 1;
     if (i >= startRow && i <= endRow) {
       tr.classList.remove('hidden');
-      if (i % 2 !== 0) {
+      if ((startRow + i) % 2 !== 0) {
         tr.classList.add('odd');
       }
     } else {
@@ -67,8 +72,7 @@ const visibleRows = (curPage = 1, rowsPerPage = 10) => {
     }
   });
 
-  const pageCount = Math.ceil(dataArray.length / rowsPerPage);
-  pageButtons(pageCount, curPage);
+  pageButtons(dataArray, rowsPerPage, curPage);
 
   const buttons = Array.from(document.querySelectorAll('.page-btn'));
   buttons.forEach((button, i) => {
@@ -80,14 +84,14 @@ const visibleRows = (curPage = 1, rowsPerPage = 10) => {
   });
 };
 
-const dataHandlers = () => {
+const dataHandlers = rowsPerPage => {
   const buttonSubmit = document.querySelector('button.search');
   buttonSubmit.addEventListener('click', e => {
     e.preventDefault();
-    visibleRows();
+    visibleRows(rowsPerPage);
   });
 
-  visibleRows();
+  visibleRows(rowsPerPage);
 };
 
 export default dataHandlers;
