@@ -28,10 +28,8 @@ const isAsc = arr => {
 
 const sortData = sortKey => {
   const tdArray = Array.from(document.querySelectorAll(`td.${sortKey}`));
-  let sortCol = [];
-  tdArray.forEach(td => {
-    const value = strFormat(td.textContent);
-    sortCol.push(value);
+  const sortCol = tdArray.map(td => {
+    return strFormat(td.textContent);
   });
   const sortAsc = sortAscending(data, sortKey);
   const header = document.querySelector(`th.${sortKey}`);
@@ -46,16 +44,16 @@ const sortData = sortKey => {
 
 const headerListeners = () => {
   const thArray = Array.from(document.querySelectorAll('th'));
-  thArray.forEach(th => {
+  thArray.map(th => {
     th.addEventListener('click', e => {
-      thArray.forEach(th => {
+      thArray.map(th => {
         th.classList.remove('sorted-desc', 'sorted-asc');
       });
       const sortedData = sortData(th.id);
       fillData(sortedData);
       dataHandlers();
       const tdArray = Array.from(document.querySelectorAll(`td.${th.id}`));
-      tdArray.forEach(td => {
+      tdArray.map(td => {
         td.classList.add('sorted');
       });
     });

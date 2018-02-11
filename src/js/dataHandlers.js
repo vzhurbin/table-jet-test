@@ -58,9 +58,9 @@ const visibleRows = (rowsPerPage = 10, curPage = 1) => {
   const filteredRows = filter();
   const allRows = Array.from(document.querySelectorAll('tr.row'));
   const dataArray = filteredRows.length >= 0 ? filteredRows : allRows;
+  const startRow = rowsPerPage * curPage - rowsPerPage;
+  const endRow = rowsPerPage * curPage - 1;
   dataArray.forEach((tr, i) => {
-    const startRow = rowsPerPage * curPage - rowsPerPage;
-    const endRow = rowsPerPage * curPage - 1;
     if (i >= startRow && i <= endRow) {
       tr.classList.remove('hidden');
       if ((startRow + i) % 2 !== 0) {

@@ -1,34 +1,34 @@
 import { data } from '../Data';
 
-const headerArr = Object.keys(data[0]).slice(1);
-
 const formatHeader = str => {
   str = str.replace('_', ' ');
   return str && str[0].toUpperCase() + str.slice(1);
 };
 
 const createHeader = () => {
-  const headerHtml = headerArr
-    .map(el => {
+  const headerArr = Object.keys(data[0]).slice(1);
+  const thHtml = headerArr
+    .map(header => {
       return `
-        <th id="${el}" class="${el}">${formatHeader(el)}</th>
+        <th id="${header}" class="${header}">${formatHeader(header)}</th>
       `;
     })
     .join('');
 
-  return `<tr class="header">${headerHtml}</tr>`;
+  return `<tr class="header">${thHtml}</tr>`;
 };
 
 const createOneRow = (arrOfObj, i) => {
-  const rowHtml = headerArr
-    .map(el => {
+  const headerArr = Object.keys(data[0]).slice(1);
+  const tdHtml = headerArr
+    .map(header => {
       return `
-        <td class="${el}">${arrOfObj[i][el]}</td>
+        <td class="${header}">${arrOfObj[i][header]}</td>
       `;
     })
     .join('');
 
-  return `<tr class="row">${rowHtml}</tr>`;
+  return `<tr class="row">${tdHtml}</tr>`;
 };
 
 const createRows = arrOfObj => {
