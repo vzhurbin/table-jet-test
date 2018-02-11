@@ -3,13 +3,13 @@ const filter = () => {
   const query = input.value.trim().toUpperCase();
   const trArray = Array.from(document.querySelectorAll('tr.row'));
   trArray.forEach(tr => {
-    let data = '';
+    let row = '';
     const tdArray = Array.from(tr.querySelectorAll('td'));
     tdArray.forEach(td => {
-      data += td.textContent;
+      row += td.textContent.toUpperCase();
     });
 
-    if (data.toUpperCase().indexOf(query) > -1) {
+    if (row.indexOf(query) > -1) {
       tr.classList.remove('hidden');
     } else {
       tr.classList.add('hidden');
