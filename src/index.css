@@ -47,6 +47,10 @@ tbody.data {
   border-bottom: 2px solid black;  
 }
 
+tr {
+  border-bottom: 1px solid #E0E0E0;
+}
+
 .hidden { 
   display: none; 
 }
@@ -62,15 +66,11 @@ th {
   font-size: 12px;
 }
 
-td {
-  border-bottom: 1px solid #E0E0E0;
-}
-
-tr:not(.hidden):nth-child(even) {
+tr.odd {
   background-color: #ECEFF1;
 }
 
-tr:not(.hidden):nth-child(even) td.sorted {
+tr.odd td.sorted {
   background-color: #CFD8DC;
 }
 
@@ -122,17 +122,15 @@ th:after {
   margin-top: 10px;
 }
 
-.page-button.inactive {
+.page-btn.inactive {
   padding: 8px;
   margin: 2px;
   border: none;
   background: transparent;
 }
 
-.page-button.inactive:hover {
+.page-btn.inactive:hover {
   background: lightgray;
   border-radius: 5px;
   padding: 8px;
 }
-
-

@@ -18,29 +18,31 @@ const dataHandlers = () => {
         tr.classList.remove('hidden');
       } else {
         tr.classList.add('hidden');
+        tr.classList.remove('odd');
       }
     });
 
-    const filteredRows = Array.from(
-      document.querySelectorAll('tr.row:not(.hidden)')
-    );
-    return filteredRows;
+    const visibleRows = document.querySelectorAll('tr.row:not(.hidden)');
+    return visibleRows;
   };
 
   const pageButtons = (pageCount = 1, curPage) => {
     const disablePrevious = curPage === 1 ? 'disabled' : '';
     const disableNext = curPage === pageCount ? 'disabled' : '';
-    let buttons = `<input class="page-button switch prev" id="page-button-0" type="button" value="Previous" ${disablePrevious}>`;
+
+    let buttons = `<input type="button" class="page-btn switch prev" value="Previous" ${disablePrevious}>`;
+
     for (let i = 1; i <= pageCount; i += 1) {
-      buttons += `<input class="page-button num" type="button" id="page-button-${i}" value="${i}">`;
+      buttons += `<input type="button" id="page-btn-${i}" class="page-btn" value="${i}">`;
     }
-    buttons += `<input class="page-button switch next" id="page-button-${pageCount+1}" type="button" value="Next" ${disableNext}>`;
+
+    buttons += `<input type="button" class="page-btn switch next" value="Next" ${disableNext}>`;
 
     const buttonsDiv = document.querySelector('.page-buttons');
     buttonsDiv.innerHTML = buttons;
 
     for (let j = 1; j <= pageCount; j += 1) {
-      const button = document.getElementById(`page-button-${j}`);
+      const button = document.querySelector(`#page-btn-${j}`);
       button.addEventListener('click', e => {
         visibleRows(j);
       });
@@ -56,21 +58,24 @@ const dataHandlers = () => {
     const filteredRows = filter();
     const dataArray = filteredRows.length >= 0 ? filteredRows : trArray;
     dataArray.forEach((tr, i) => {
-      const isHeader = tr.firstElementChild.tagName === 'TH';
       const startRow = rowsPerPage * curPage - rowsPerPage;
       const endRow = rowsPerPage * curPage - 1;
 
-      if (isHeader || (i >= startRow && i <= endRow)) {
+      if (i >= startRow && i <= endRow) {
         tr.classList.remove('hidden');
+        if (i % 2 !== 0) {
+          tr.classList.add('odd');
+        }
       } else {
         tr.classList.add('hidden');
+        tr.classList.remove('odd');
       }
     });
 
     const pageCount = Math.ceil(dataArray.length / rowsPerPage);
     pageButtons(pageCount, curPage);
 
-    const buttons = Array.from(document.querySelectorAll('.page-button'));
+    const buttons = Array.from(document.querySelectorAll('.page-btn'));
     buttons.forEach((button, i) => {
       if (i === curPage) {
         button.classList.remove('inactive');
